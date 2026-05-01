@@ -146,7 +146,7 @@ a, button { cursor: none; }
   align-items: center;
   justify-content: center;
 }
-#hero { min-height: 100vh; }
+#hero { min-height: 100vh; justify-content: flex-start; padding-top: 120px; }
 .section-inner {
   width: 100%;
   max-width: 1280px;
