@@ -51,6 +51,22 @@ const observerStats = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 document.querySelectorAll('.stat-num').forEach(s => observerStats.observe(s));
 
+// ----- Circular sprite texture so points render as circles, not squares -----
+function makeCircleTexture() {
+  const c = document.createElement('canvas');
+  c.width = 64; c.height = 64;
+  const ctx = c.getContext('2d');
+  const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0,   'rgba(255,255,255,1)');
+  grad.addColorStop(0.4, 'rgba(255,255,255,0.85)');
+  grad.addColorStop(1,   'rgba(255,255,255,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 64, 64);
+  const tex = new THREE.CanvasTexture(c);
+  tex.minFilter = THREE.LinearFilter;
+  return tex;
+}
+
 /* ============================================================
    SCENE 1 — Background particle universe with floating shapes
    ============================================================ */
@@ -66,21 +82,6 @@ document.querySelectorAll('.stat-num').forEach(s => observerStats.observe(s));
   const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 2000);
   camera.position.set(0, 0, 250);
 
-  // ----- Circular sprite texture so points render as circles, not squares -----
-  function makeCircleTexture() {
-    const c = document.createElement('canvas');
-    c.width = 64; c.height = 64;
-    const ctx = c.getContext('2d');
-    const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    grad.addColorStop(0,   'rgba(255,255,255,1)');
-    grad.addColorStop(0.4, 'rgba(255,255,255,0.85)');
-    grad.addColorStop(1,   'rgba(255,255,255,0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 64, 64);
-    const tex = new THREE.CanvasTexture(c);
-    tex.minFilter = THREE.LinearFilter;
-    return tex;
-  }
   const circleTexture = makeCircleTexture();
 
   // ----- Particle field (stars) -----
