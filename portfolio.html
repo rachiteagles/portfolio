@@ -697,6 +697,236 @@ a, button { cursor: none; }
   #skills-3d-container { height: 400px; }
 }
 
+/* ============== SQL CHALLENGE GAME ============== */
+#challenge { background: transparent; }
+.sql-game-wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.sql-challenge-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.sql-tab {
+  padding: 8px 20px;
+  border: 1px solid rgba(0,240,255,0.25);
+  background: rgba(0,240,255,0.04);
+  color: #a0a8d0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.sql-tab:hover { border-color: var(--primary); color: var(--primary); }
+.sql-tab.active {
+  border-color: var(--primary);
+  background: rgba(0,240,255,0.12);
+  color: var(--primary);
+  box-shadow: 0 0 12px rgba(0,240,255,0.2);
+}
+.sql-tab.solved {
+  border-color: #00ff9f;
+  background: rgba(0,255,159,0.08);
+  color: #00ff9f;
+}
+.sql-challenge-card {
+  display: none;
+  border: 1px solid rgba(0,240,255,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(10,10,31,0.7);
+  backdrop-filter: blur(8px);
+}
+.sql-challenge-card.active { display: block; }
+.sql-card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0,240,255,0.1);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.sql-difficulty {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.diff-easy   { background: rgba(0,255,159,0.15); color: #00ff9f; border: 1px solid rgba(0,255,159,0.3); }
+.diff-medium { background: rgba(255,170,0,0.15); color: #ffaa00; border: 1px solid rgba(255,170,0,0.3); }
+.diff-hard   { background: rgba(255,46,136,0.15); color: #ff2e88; border: 1px solid rgba(255,46,136,0.3); }
+.sql-question { font-size: 15px; color: #c8d0f0; line-height: 1.6; }
+.sql-question strong { color: var(--primary); }
+.sql-card-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 340px;
+}
+@media (max-width: 680px) {
+  .sql-card-body { grid-template-columns: 1fr; }
+}
+.sql-schema-panel {
+  padding: 20px;
+  border-right: 1px solid rgba(0,240,255,0.1);
+  background: rgba(5,5,16,0.5);
+  overflow: auto;
+}
+.sql-schema-panel h4 {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #5a6090;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.schema-table {
+  margin-bottom: 16px;
+}
+.schema-table-name {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--secondary);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.schema-col {
+  display: flex;
+  gap: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  padding: 2px 0;
+  color: #8890b8;
+}
+.schema-col-name { color: #c8d0f0; }
+.schema-col-type { color: #ffaa00; opacity: 0.8; }
+.schema-col-key  { color: #ff2e88; font-size: 9px; margin-top: 2px; }
+.sql-editor-panel {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sql-editor-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #5a6090;
+  text-transform: uppercase;
+}
+.sql-editor {
+  width: 100%;
+  min-height: 130px;
+  background: rgba(5,5,20,0.8);
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 6px;
+  color: #e6e9ff;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  padding: 12px 14px;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color 0.2s;
+  tab-size: 2;
+}
+.sql-editor:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0,240,255,0.08); }
+.sql-editor::placeholder { color: #3a4070; }
+.sql-run-btn {
+  align-self: flex-start;
+  padding: 10px 28px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #050510;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.sql-run-btn:hover { opacity: 0.85; }
+.sql-run-btn:active { transform: scale(0.97); }
+.sql-feedback {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  display: none;
+  line-height: 1.5;
+}
+.sql-feedback.show { display: block; }
+.sql-feedback.error {
+  background: rgba(255,46,136,0.1);
+  border: 1px solid rgba(255,46,136,0.3);
+  color: #ff7eb0;
+}
+.sql-feedback.success {
+  background: rgba(0,255,159,0.08);
+  border: 1px solid rgba(0,255,159,0.25);
+  color: #00ff9f;
+}
+.sql-feedback.hint {
+  background: rgba(255,170,0,0.08);
+  border: 1px solid rgba(255,170,0,0.25);
+  color: #ffcc66;
+}
+.sql-result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  margin-top: 8px;
+  display: none;
+}
+.sql-result-table.show { display: table; }
+.sql-result-table th {
+  background: rgba(0,240,255,0.1);
+  color: var(--primary);
+  padding: 6px 12px;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid rgba(0,240,255,0.2);
+}
+.sql-result-table td {
+  padding: 5px 12px;
+  color: #a0a8d0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sql-result-table tr:hover td { background: rgba(0,240,255,0.03); }
+.sql-result-meta {
+  font-size: 11px;
+  color: #5a6090;
+  margin-top: 6px;
+  display: none;
+}
+.sql-result-meta.show { display: block; }
+.sql-score-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.sql-score-label { font-size: 13px; color: #5a6090; }
+.sql-score-pips { display: flex; gap: 6px; }
+.sql-pip {
+  width: 28px; height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: background 0.4s, border-color 0.4s;
+}
+.sql-pip.done { background: #00ff9f; border-color: #00ff9f; box-shadow: 0 0 6px rgba(0,255,159,0.4); }
+
 </style>
 </head>
 <body>
@@ -719,6 +949,7 @@ a, button { cursor: none; }
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#challenge">Challenge</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -888,9 +1119,157 @@ a, button { cursor: none; }
     </div>
   </section>
 
+  <section id="challenge" class="section">
+    <div class="section-inner">
+      <div class="section-label">04 / CHALLENGE</div>
+      <h2 class="section-title">SQL <span class="gradient-text">Query Lab</span></h2>
+      <p class="section-sub">Three real-world data engineering scenarios. Write SQL, get instant feedback. Can you ace all three?</p>
+
+      <div class="sql-game-wrapper">
+        <div class="sql-score-bar">
+          <span class="sql-score-label">SOLVED</span>
+          <div class="sql-score-pips">
+            <div class="sql-pip" id="pip-0"></div>
+            <div class="sql-pip" id="pip-1"></div>
+            <div class="sql-pip" id="pip-2"></div>
+          </div>
+          <span class="sql-score-label" id="sql-score-text">0 / 3</span>
+        </div>
+
+        <div class="sql-challenge-tabs">
+          <button class="sql-tab active" data-tab="0">01 · Easy</button>
+          <button class="sql-tab" data-tab="1">02 · Medium</button>
+          <button class="sql-tab" data-tab="2">03 · Hard</button>
+        </div>
+
+        <!-- Challenge 0: Easy -->
+        <div class="sql-challenge-card active" data-card="0">
+          <div class="sql-card-header">
+            <span class="sql-difficulty diff-easy">EASY</span>
+            <div class="sql-question">
+              Your ops team needs a report of <strong>all delivered orders with amount &gt; $500</strong>, sorted highest first. Write the query.
+            </div>
+          </div>
+          <div class="sql-card-body">
+            <div class="sql-schema-panel">
+              <h4>Schema</h4>
+              <div class="schema-table">
+                <div class="schema-table-name">orders</div>
+                <div class="schema-col"><span class="schema-col-key">PK</span><span class="schema-col-name">order_id</span><span class="schema-col-type">INT</span></div>
+                <div class="schema-col"><span class="schema-col-key">FK</span><span class="schema-col-name">customer_id</span><span class="schema-col-type">INT</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">amount</span><span class="schema-col-type">DECIMAL</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">status</span><span class="schema-col-type">VARCHAR</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">created_at</span><span class="schema-col-type">TIMESTAMP</span></div>
+              </div>
+            </div>
+            <div class="sql-editor-panel">
+              <div class="sql-editor-label">Your Query</div>
+              <textarea class="sql-editor" id="editor-0" placeholder="SELECT ..." spellcheck="false"></textarea>
+              <button class="sql-run-btn" data-challenge="0">▶ RUN QUERY</button>
+              <div class="sql-feedback" id="feedback-0"></div>
+              <table class="sql-result-table" id="result-0">
+                <thead><tr><th>order_id</th><th>customer_id</th><th>amount</th><th>status</th></tr></thead>
+                <tbody>
+                  <tr><td>1042</td><td>88</td><td>$1,240.00</td><td>delivered</td></tr>
+                  <tr><td>987</td><td>54</td><td>$890.50</td><td>delivered</td></tr>
+                  <tr><td>763</td><td>21</td><td>$714.00</td><td>delivered</td></tr>
+                  <tr><td>501</td><td>67</td><td>$512.75</td><td>delivered</td></tr>
+                </tbody>
+              </table>
+              <div class="sql-result-meta" id="meta-0">4 rows · simulated result</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Challenge 1: Medium -->
+        <div class="sql-challenge-card" data-card="1">
+          <div class="sql-card-header">
+            <span class="sql-difficulty diff-medium">MEDIUM</span>
+            <div class="sql-question">
+              Marketing wants <strong>total revenue by country for Gold-tier customers only</strong>. Join the tables and aggregate.
+            </div>
+          </div>
+          <div class="sql-card-body">
+            <div class="sql-schema-panel">
+              <h4>Schema</h4>
+              <div class="schema-table">
+                <div class="schema-table-name">customers</div>
+                <div class="schema-col"><span class="schema-col-key">PK</span><span class="schema-col-name">customer_id</span><span class="schema-col-type">INT</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">name</span><span class="schema-col-type">VARCHAR</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">country</span><span class="schema-col-type">VARCHAR</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">tier</span><span class="schema-col-type">VARCHAR</span></div>
+              </div>
+              <div class="schema-table">
+                <div class="schema-table-name">orders</div>
+                <div class="schema-col"><span class="schema-col-key">PK</span><span class="schema-col-name">order_id</span><span class="schema-col-type">INT</span></div>
+                <div class="schema-col"><span class="schema-col-key">FK</span><span class="schema-col-name">customer_id</span><span class="schema-col-type">INT</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">amount</span><span class="schema-col-type">DECIMAL</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">status</span><span class="schema-col-type">VARCHAR</span></div>
+              </div>
+            </div>
+            <div class="sql-editor-panel">
+              <div class="sql-editor-label">Your Query</div>
+              <textarea class="sql-editor" id="editor-1" placeholder="SELECT ..." spellcheck="false"></textarea>
+              <button class="sql-run-btn" data-challenge="1">▶ RUN QUERY</button>
+              <div class="sql-feedback" id="feedback-1"></div>
+              <table class="sql-result-table" id="result-1">
+                <thead><tr><th>country</th><th>total_revenue</th></tr></thead>
+                <tbody>
+                  <tr><td>United States</td><td>$48,320.00</td></tr>
+                  <tr><td>Germany</td><td>$31,100.50</td></tr>
+                  <tr><td>Japan</td><td>$22,750.00</td></tr>
+                  <tr><td>Canada</td><td>$18,900.25</td></tr>
+                </tbody>
+              </table>
+              <div class="sql-result-meta" id="meta-1">4 rows · simulated result</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Challenge 2: Hard -->
+        <div class="sql-challenge-card" data-card="2">
+          <div class="sql-card-header">
+            <span class="sql-difficulty diff-hard">HARD</span>
+            <div class="sql-question">
+              Your data platform is flaky. Find <strong>pipeline names that failed more than 3 times in the last 30 days</strong>, showing the failure count.
+            </div>
+          </div>
+          <div class="sql-card-body">
+            <div class="sql-schema-panel">
+              <h4>Schema</h4>
+              <div class="schema-table">
+                <div class="schema-table-name">pipeline_runs</div>
+                <div class="schema-col"><span class="schema-col-key">PK</span><span class="schema-col-name">run_id</span><span class="schema-col-type">INT</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">pipeline_name</span><span class="schema-col-type">VARCHAR</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">status</span><span class="schema-col-type">VARCHAR</span></div>
+                <div class="schema-col"><span class="schema-col-key">&nbsp;&nbsp;</span><span class="schema-col-name">run_date</span><span class="schema-col-type">DATE</span></div>
+              </div>
+            </div>
+            <div class="sql-editor-panel">
+              <div class="sql-editor-label">Your Query</div>
+              <textarea class="sql-editor" id="editor-2" placeholder="SELECT ..." spellcheck="false"></textarea>
+              <button class="sql-run-btn" data-challenge="2">▶ RUN QUERY</button>
+              <div class="sql-feedback" id="feedback-2"></div>
+              <table class="sql-result-table" id="result-2">
+                <thead><tr><th>pipeline_name</th><th>failure_count</th></tr></thead>
+                <tbody>
+                  <tr><td>ingest_clickstream</td><td>7</td></tr>
+                  <tr><td>sync_crm_daily</td><td>5</td></tr>
+                  <tr><td>load_warehouse_facts</td><td>4</td></tr>
+                </tbody>
+              </table>
+              <div class="sql-result-meta" id="meta-2">3 rows · simulated result</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <section id="contact" class="section">
     <div class="section-inner">
-      <div class="section-label">04 / CONTACT</div>
+      <div class="section-label">05 / CONTACT</div>
       <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
       <p class="section-sub">Open to data engineering, ML engineering, and platform roles. Reach out anytime.</p>
 
@@ -959,7 +1338,7 @@ a, button { cursor: none; }
         requestAnimationFrame(animateCursor);
       }
       animateCursor();
-      document.querySelectorAll('a, button, .stat, .tl-card, .skill-cat, .contact-card').forEach(el => {
+      document.querySelectorAll('a, button, .stat, .tl-card, .skill-cat, .contact-card, .sql-tab, .sql-run-btn').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
       });
@@ -983,6 +1362,129 @@ a, button { cursor: none; }
       });
     }, { threshold: 0.4 });
     document.querySelectorAll('.stat-num').forEach(s => observerStats.observe(s));
+
+    // ----- SQL Query Challenge Game -----
+    (function sqlGame() {
+      const challenges = [
+        {
+          // Easy: filter delivered orders > 500, order by amount desc
+          required: [
+            { keys: ['select'],                          hint: 'Start with SELECT to choose your columns.' },
+            { keys: ['from orders', 'from\norders'],     hint: 'You need FROM orders to target the right table.' },
+            { keys: ['where'],                           hint: 'Use a WHERE clause to filter rows.' },
+            { keys: ["'delivered'", '"delivered"', 'delivered'], hint: "Filter by status = 'delivered'." },
+            { keys: ['500'],                             hint: 'Filter amount > 500.' },
+            { keys: ['order by'],                        hint: 'Sort with ORDER BY amount DESC.' },
+          ]
+        },
+        {
+          // Medium: join customers + orders, gold tier, group by country, sum amount
+          required: [
+            { keys: ['select'],                          hint: 'Start with SELECT.' },
+            { keys: ['from customers', 'from orders'],   hint: 'Reference at least one of: customers, orders.' },
+            { keys: ['join'],                            hint: 'JOIN the two tables on customer_id.' },
+            { keys: ["'gold'", '"gold"', 'gold'],        hint: "Filter WHERE tier = 'gold'." },
+            { keys: ['group by'],                        hint: 'GROUP BY country to aggregate per country.' },
+            { keys: ['sum('],                            hint: 'Use SUM(amount) to compute total revenue.' },
+          ]
+        },
+        {
+          // Hard: pipeline_runs failed > 3 in last 30 days, HAVING COUNT
+          required: [
+            { keys: ['select'],                          hint: 'Start with SELECT.' },
+            { keys: ['from pipeline_runs'],              hint: 'Query FROM pipeline_runs.' },
+            { keys: ["'failed'", '"failed"', 'failed'],  hint: "Filter WHERE status = 'failed'." },
+            { keys: ['30', 'interval', 'dateadd', 'date_sub', 'current_date', 'now()'], hint: 'Restrict run_date to the last 30 days.' },
+            { keys: ['group by'],                        hint: 'GROUP BY pipeline_name.' },
+            { keys: ['having'],                          hint: 'Use HAVING COUNT(*) > 3 to filter groups.' },
+            { keys: ['count('],                          hint: 'Use COUNT(*) or COUNT(run_id) inside HAVING.' },
+          ]
+        }
+      ];
+
+      const solved = [false, false, false];
+
+      function normalize(sql) { return sql.toLowerCase().replace(/\s+/g, ' ').trim(); }
+
+      function validate(idx, sql) {
+        const n = normalize(sql);
+        if (!n) return { ok: false, type: 'error', msg: 'Write a query first.' };
+
+        const rules = challenges[idx].required;
+        for (const rule of rules) {
+          const pass = rule.keys.some(k => n.includes(k.toLowerCase()));
+          if (!pass) return { ok: false, type: 'hint', msg: '💡 Hint: ' + rule.hint };
+        }
+        return { ok: true };
+      }
+
+      function updateScore() {
+        const count = solved.filter(Boolean).length;
+        document.getElementById('sql-score-text').textContent = count + ' / 3';
+        solved.forEach((s, i) => {
+          document.getElementById('pip-' + i).classList.toggle('done', s);
+          const tab = document.querySelector('.sql-tab[data-tab="' + i + '"]');
+          if (s) { tab.classList.add('solved'); tab.classList.remove('active'); }
+        });
+      }
+
+      // Tab switching
+      document.querySelectorAll('.sql-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.sql-tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.sql-challenge-card').forEach(c => c.classList.remove('active'));
+          tab.classList.add('active');
+          const idx = tab.dataset.tab;
+          document.querySelector('.sql-challenge-card[data-card="' + idx + '"]').classList.add('active');
+        });
+      });
+
+      // Run buttons
+      document.querySelectorAll('.sql-run-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.challenge, 10);
+          const sql = document.getElementById('editor-' + idx).value;
+          const fb = document.getElementById('feedback-' + idx);
+          const tbl = document.getElementById('result-' + idx);
+          const meta = document.getElementById('meta-' + idx);
+
+          fb.className = 'sql-feedback';
+          tbl.classList.remove('show');
+          meta.classList.remove('show');
+
+          const result = validate(idx, sql);
+
+          if (result.ok) {
+            fb.className = 'sql-feedback success show';
+            fb.textContent = '✓ Correct! Query looks good — result set below.';
+            tbl.classList.add('show');
+            meta.classList.add('show');
+            if (!solved[idx]) {
+              solved[idx] = true;
+              updateScore();
+            }
+          } else if (result.type === 'hint') {
+            fb.className = 'sql-feedback hint show';
+            fb.textContent = result.msg;
+          } else {
+            fb.className = 'sql-feedback error show';
+            fb.textContent = result.msg;
+          }
+        });
+      });
+
+      // Tab key inserts 2 spaces in editors
+      document.querySelectorAll('.sql-editor').forEach(ed => {
+        ed.addEventListener('keydown', e => {
+          if (e.key === 'Tab') {
+            e.preventDefault();
+            const s = ed.selectionStart, en = ed.selectionEnd;
+            ed.value = ed.value.substring(0, s) + '  ' + ed.value.substring(en);
+            ed.selectionStart = ed.selectionEnd = s + 2;
+          }
+        });
+      });
+    })();
 
     // ----- Run 3D scenes only if Three.js loaded -----
     function startScenes() {
@@ -1408,6 +1910,7 @@ a, button { cursor: none; }
         }
         animate();
       })();
+
     }
 
     // Start scenes once DOM is ready
